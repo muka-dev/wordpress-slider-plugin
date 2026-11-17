@@ -2,8 +2,8 @@
 id: T01
 title: Projekt-Scaffold & Build
 phase: 0
-status: open
-owner:
+status: review
+owner: subagent-sonnet
 depends_on: []
 ---
 
