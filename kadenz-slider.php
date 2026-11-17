@@ -22,6 +22,7 @@ define( 'KADENZ_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 
 require_once KADENZ_SLIDER_DIR . 'includes/class-attributes.php';
 require_once KADENZ_SLIDER_DIR . 'includes/class-style-vars.php';
+require_once KADENZ_SLIDER_DIR . 'includes/class-slide-markup.php';
 require_once KADENZ_SLIDER_DIR . 'includes/class-plugin.php';
 
 add_action( 'plugins_loaded', array( 'Kadenz\Slider\Plugin', 'init' ) );

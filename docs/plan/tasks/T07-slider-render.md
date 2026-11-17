@@ -2,8 +2,8 @@
 id: T07
 title: "Slider: Server-Rendering"
 phase: 1
-status: open
-owner:
+status: in-progress
+owner: subagent-sonnet (WIP, unterbrochen)
 depends_on: [T05, T06]
 ---
 
