@@ -2,8 +2,8 @@
 id: T06
 title: Slide-Block
 phase: 1
-status: open
-owner:
+status: review
+owner: subagent-haiku
 depends_on: [T01]
 ---
 
