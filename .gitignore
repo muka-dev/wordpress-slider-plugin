@@ -6,3 +6,5 @@ vendor/
 test-results/
 playwright-report/
 artifacts/
+.phpunit.result.cache
+.claude/worktrees/
