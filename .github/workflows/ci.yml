@@ -111,7 +111,7 @@ jobs:
       - run: npm ci
       - run: composer install --no-progress --prefer-dist
       - name: Download build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build
           path: build/
