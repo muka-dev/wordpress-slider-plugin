@@ -1,0 +1,48 @@
+{
+	"name": "kadenz-slider",
+	"version": "0.1.0",
+	"description": "Ad-free, accessible, block-native slider for WordPress.",
+	"author": "Kadenz",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"block",
+		"slider",
+		"carousel",
+		"accessibility"
+	],
+	"homepage": "https://github.com/muka-dev/wordpress-slider-plugin",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/muka-dev/wordpress-slider-plugin.git"
+	},
+	"bugs": {
+		"url": "https://github.com/muka-dev/wordpress-slider-plugin/issues"
+	},
+	"private": true,
+	"files": [
+		"kadenz-slider.php",
+		"includes",
+		"build",
+		"languages",
+		"readme.txt",
+		"LICENSE"
+	],
+	"devDependencies": {
+		"@wordpress/env": "^10.0.0",
+		"@wordpress/scripts": "^30.0.0",
+		"typescript": "~5.5.4"
+	},
+	"scripts": {
+		"build": "wp-scripts build --experimental-modules",
+		"start": "wp-scripts start --experimental-modules",
+		"lint": "npm run lint:js && npm run lint:css && npm run lint:pkg",
+		"lint:js": "wp-scripts lint-js src tests --no-error-on-unmatched-pattern",
+		"lint:css": "wp-scripts lint-style \"src/**/*.scss\"",
+		"lint:pkg": "wp-scripts lint-pkg-json",
+		"format": "wp-scripts format",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop"
+	}
+}

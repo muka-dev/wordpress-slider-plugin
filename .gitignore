@@ -1,0 +1,8 @@
+node_modules/
+build/
+vendor/
+*.zip
+.wp-env/
+test-results/
+playwright-report/
+artifacts/
