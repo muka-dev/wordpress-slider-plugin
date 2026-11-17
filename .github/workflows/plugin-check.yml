@@ -1,0 +1,37 @@
+name: Plugin Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plugin-check:
+    name: wp.org Plugin Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run plugin-zip
+      - name: Extract plugin ZIP
+        run: |
+          mkdir -p plugin-zip-extract
+          unzip -q kadenz-slider.zip -d plugin-zip-extract
+          ls -la plugin-zip-extract/kadenz-slider
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: plugin-zip-extract/kadenz-slider
