@@ -1,0 +1,17 @@
+[
+	{
+		"name": "Frontend JS (view.js)",
+		"path": "build/slider/view.js",
+		"limit": "6 KB",
+		"gzip": true
+	},
+	{
+		"name": "Frontend CSS (slider + slide)",
+		"path": [
+			"build/slider/style-index.css",
+			"build/slide/style-index.css"
+		],
+		"limit": "4 KB",
+		"gzip": true
+	}
+]
