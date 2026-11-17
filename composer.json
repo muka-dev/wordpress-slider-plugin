@@ -1,0 +1,29 @@
+{
+	"name": "kadenz/kadenz-slider",
+	"description": "Ad-free, accessible, block-native slider for WordPress. Composer is used for development tools only.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"brain/monkey": "^2.6",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"phpunit/phpunit": "^9.6",
+		"wp-coding-standards/wpcs": "^3.0",
+		"wp-phpunit/wp-phpunit": "^6.6",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"config": {
+		"platform": {
+			"php": "7.4"
+		},
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"lint": "phpcs",
+		"lint:fix": "phpcbf",
+		"test:unit": "phpunit --testsuite unit"
+	}
+}

@@ -1,9 +1,14 @@
 {
 	"core": null,
 	"phpVersion": "7.4",
-	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/plugins/kadenz-slider": "."
+	},
 	"config": {
 		"WP_DEBUG": true,
 		"SCRIPT_DEBUG": true
+	},
+	"lifecycleScripts": {
+		"afterStart": "wp-env run cli wp plugin activate kadenz-slider && wp-env run tests-cli wp plugin activate kadenz-slider"
 	}
 }
