@@ -126,6 +126,7 @@ gültigen Werten. Die Defaults kommen aus `Attributes::defaults()`, gefiltert du
     "layout": { "default": { "type": "flex", "orientation": "vertical", "justifyContent": "center", "verticalAlignment": "center" }, "allowSwitching": false }
   },
   "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "render": "file:./render.php"
 }
