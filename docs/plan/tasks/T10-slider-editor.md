@@ -2,8 +2,8 @@
 id: T10
 title: "Slider: Editor-UI"
 phase: 1
-status: open
-owner:
+status: review
+owner: subagent-sonnet
 depends_on: [T06]
 ---
 
