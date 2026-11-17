@@ -2,8 +2,8 @@
 id: T02
 title: "PHP-Tooling: Composer, PHPCS, PHPUnit"
 phase: 0
-status: open
-owner:
+status: review
+owner: subagent-sonnet
 depends_on: [T01]
 ---
 

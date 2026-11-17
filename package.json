@@ -51,6 +51,7 @@
 		"env:stop": "wp-env stop",
 		"test:js": "wp-scripts test-unit-js tests/js",
 		"test:e2e": "wp-scripts test-playwright --trace off",
-		"size": "size-limit"
+		"size": "size-limit",
+		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/kadenz-slider vendor/bin/phpunit --bootstrap tests/php/integration/bootstrap.php --testsuite integration"
 	}
 }
