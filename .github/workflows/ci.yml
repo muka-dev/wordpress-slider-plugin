@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-js:
+    name: Lint JS, CSS, package.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  lint-php:
+    name: Lint PHP (PHPCS)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer
+          coverage: none
+      - run: composer install --no-progress --prefer-dist
+      - run: composer lint
+
+  unit:
+    name: Unit (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+          coverage: none
+      - run: npm ci
+      - run: npm run test:js
+      - run: composer install --no-progress --prefer-dist
+      - run: composer test:unit
+
+  build-size:
+    name: Build and size budget
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run size
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build/
+          retention-days: 1
+          if-no-files-found: error
+
+  integration:
+    name: Integration (WP ${{ matrix.wp }}, PHP ${{ matrix.php }})
+    needs: build-size
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        wp: ['6.6', 'latest']
+        # wp-env cannot build PHP 7.4 images anymore (Debian bullseye archives are gone).
+        # PHP 7.4 stays covered by the unit job and PHPCompatibility in lint-php.
+        php: ['8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer
+          coverage: none
+      - run: npm ci
+      - run: composer install --no-progress --prefer-dist
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+      - name: Write wp-env override for the matrix cell
+        env:
+          MATRIX_WP: ${{ matrix.wp }}
+          MATRIX_PHP: ${{ matrix.php }}
+        run: |
+          if [ "$MATRIX_WP" = "latest" ]; then
+            core=null
+          else
+            core="\"WordPress/WordPress#$MATRIX_WP-branch\""
+          fi
+          printf '{"core":%s,"phpVersion":"%s"}\n' "$core" "$MATRIX_PHP" > .wp-env.override.json
+          cat .wp-env.override.json
+      - run: npm run env:start
+      - run: npm run test:php
+      - name: Stop wp-env
+        if: always()
+        run: npm run env:stop

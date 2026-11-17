@@ -52,6 +52,7 @@ class SlideRenderTest extends \WP_UnitTestCase {
 		$this->assertStringContainsString( 'kadenz-slide', $html );
 		$this->assertStringContainsString( 'background-color:#ff0000', $html );
 		$this->assertStringContainsString( 'is-layout-flex', $html );
-		$this->assertStringContainsString( '<p>Hallo</p>', $html );
+		// Newer WordPress versions add a `wp-block-paragraph` class to the paragraph.
+		$this->assertMatchesRegularExpression( '#<p( class="[^"]*")?>Hallo</p>#', $html );
 	}
 }

@@ -1,5 +1,7 @@
 # Kadenz Slider
 
+[![CI](https://github.com/muka-dev/wordpress-slider-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/muka-dev/wordpress-slider-plugin/actions/workflows/ci.yml)
+
 Ein werbefreies, schnelles und barrierefreies Open-Source-Slider-Plugin für WordPress:
 Gutenberg-nativ, ohne jQuery, ohne Pro-Version, ohne Telemetrie.
 

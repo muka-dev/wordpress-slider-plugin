@@ -2,8 +2,8 @@
 id: T04
 title: CI-Workflows (GitHub Actions)
 phase: 0
-status: open
-owner:
+status: review
+owner: subagent-haiku
 depends_on: [T02, T03]
 ---
 
