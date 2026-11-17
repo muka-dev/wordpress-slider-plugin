@@ -121,7 +121,7 @@ jobs:
           if [ "$MATRIX_WP" = "latest" ]; then
             core=null
           else
-            core="\"WordPress/WordPress#$MATRIX_WP\""
+            core="\"WordPress/WordPress#$MATRIX_WP-branch\""
           fi
           printf '{"core":%s,"phpVersion":"%s"}\n' "$core" "$MATRIX_PHP" > .wp-env.override.json
           cat .wp-env.override.json
