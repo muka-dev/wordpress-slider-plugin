@@ -2,8 +2,8 @@
 id: T05
 title: Attribut-Normalisierung & CSS-Variablen (PHP)
 phase: 1
-status: open
-owner:
+status: review
+owner: subagent-sonnet
 depends_on: [T02]
 ---
 
