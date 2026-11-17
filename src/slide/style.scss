@@ -1,1 +1,8 @@
-/* Slide styles (placeholder). */
+:where(.kadenz-slide) {
+	box-sizing: border-box;
+	min-inline-size: 0;
+	position: relative;
+	overflow: hidden;
+	background-size: cover; // Fallback, falls kein backgroundSize gesetzt.
+	background-position: center;
+}
