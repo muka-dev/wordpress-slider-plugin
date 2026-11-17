@@ -29,8 +29,13 @@
 		"LICENSE"
 	],
 	"devDependencies": {
+		"@axe-core/playwright": "^4.14.0",
+		"@playwright/test": "^1.65.1",
+		"@size-limit/file": "^14.3.0",
+		"@wordpress/e2e-test-utils-playwright": "^1.54.0",
 		"@wordpress/env": "^10.0.0",
 		"@wordpress/scripts": "^30.0.0",
+		"size-limit": "^14.3.0",
 		"typescript": "~5.5.4"
 	},
 	"scripts": {
@@ -44,6 +49,9 @@
 		"plugin-zip": "wp-scripts plugin-zip",
 		"env:start": "wp-env start",
 		"env:stop": "wp-env stop",
+		"test:js": "wp-scripts test-unit-js tests/js",
+		"test:e2e": "wp-scripts test-playwright --trace off",
+		"size": "size-limit",
 		"test:php": "wp-env run tests-cli --env-cwd=wp-content/plugins/kadenz-slider vendor/bin/phpunit --bootstrap tests/php/integration/bootstrap.php --testsuite integration"
 	}
 }
