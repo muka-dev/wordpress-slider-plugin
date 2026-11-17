@@ -94,7 +94,9 @@ jobs:
       fail-fast: false
       matrix:
         wp: ['6.6', 'latest']
-        php: ['7.4', '8.3']
+        # wp-env cannot build PHP 7.4 images anymore (Debian bullseye archives are gone).
+        # PHP 7.4 stays covered by the unit job and PHPCompatibility in lint-php.
+        php: ['8.1', '8.3']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
