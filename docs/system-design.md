@@ -1,6 +1,8 @@
 # System Design: Werbefreies Open-Source Slider-Plugin für WordPress
 
-> Status: **Entwurf v0.1** · Arbeitstitel: **Kadenz Slider** (Name noch offen, siehe [Offene Entscheidungen](#9-offene-entscheidungen))
+> Status: **Freigegeben v1.0** · Name: **Kadenz Slider** · Umsetzungsplanung: [`docs/plan/`](plan/README.md)
+>
+> Bei Abweichungen zwischen diesem Dokument und [`docs/plan/contracts.md`](plan/contracts.md) gilt **contracts.md**.
 
 ---
 
@@ -67,7 +69,7 @@ Dieses Plugin soll das Gegenteil sein:
 - Kleines Kernteam / Community-Projekt → so wenig eigener Code wie möglich, maximal auf Core aufbauen.
 - Minimum: **WordPress 6.6**, **PHP 7.4** (Interactivity API + `viewScriptModule` stabil; Block-Support `background` für Container verfügbar).
 - Build mit `@wordpress/scripts`, keine weiteren Frontend-Frameworks.
-- Lizenz im Repo derzeit **AGPL-3.0** (siehe offene Entscheidungen).
+- Lizenz: **GPL-2.0-or-later** (WordPress-Standard).
 
 ### 1.4 Bewusste Nicht-Ziele
 
@@ -205,8 +207,9 @@ Alles andere kommt aus **Block Supports**: `background` (Bild, Größe, Position
 - **Slider-Wrapper: dynamisch** (`render.php`, `save` liefert nur `<InnerBlocks.Content />`).
   Damit können wir Markup, ARIA und Steuerelemente in jeder Version verbessern, **ohne** dass bestehende
   Inhalte „Dieser Block enthält unerwarteten Inhalt“ melden.
-- **Slide: dynamisch-dünn** (`render.php` ergänzt nur `role`, `aria-roledescription`, `aria-label` und
-  Lazy-Loading-Hinweise via `WP_HTML_Tag_Processor`); der Inhalt bleibt Core-Markup.
+- **Slide: dynamisch-dünn** (`render.php` rendert nur den Wrapper). Weil ein Slide seinen Index nicht kennt,
+  rendert der **Slider** seine Slides selbst (`$block->inner_blocks`) und ergänzt dabei `role`,
+  `aria-roledescription`, `aria-label` („3 von 7“) sowie Lazy-Loading-Hinweise via `WP_HTML_Tag_Processor`.
 
 Gerenderte Struktur (vereinfacht):
 
@@ -313,7 +316,7 @@ Ohne JS greift der Scroll-Snap-Fallback – nichts ist versteckt.
 | Container identifizierbar | `<section aria-roledescription="carousel" aria-label="…">`; Editor warnt bei leerem Label |
 | Slides identifizierbar | `role="group" aria-roledescription="slide" aria-label="3 von 7"` (übersetzbar) |
 | Autoplay steuerbar (WCAG 2.2.2) | Pause/Play-Button ist **erstes** fokussierbares Element im Slider, nicht abschaltbar, wenn Autoplay aktiv |
-| Live-Region | `aria-live="off"` während Autoplay, `"polite"` bei manueller Navigation |
+| Live-Region | Separate, visuell versteckte Status-Region (`aria-live="polite"`), wird nur bei manueller Navigation befüllt, nie durch Autoplay |
 | Fokus-Pause | Autoplay stoppt, sobald Fokus im Slider ist |
 | Unsichtbare Slides | `inert` → kein Tab-Fokus, für AT ausgeblendet |
 | Tastatur | Track ist fokussierbar (`tabindex="0"`), Pfeiltasten scrollen nativ; Buttons per Tab erreichbar |
@@ -471,13 +474,11 @@ kadenz-slider/
 
 ---
 
-## 9. Offene Entscheidungen
+## 9. Getroffene Entscheidungen
 
-1. **Name & Slug** – „Kadenz Slider“ ist Arbeitstitel; Slug vor 1.0 fixieren (Blocknamen hängen daran!).
-2. **Lizenz** – Das Repo trägt derzeit **AGPL-3.0**. WordPress.org verlangt GPL-kompatible Lizenzen; der
-   WordPress-Standard ist „GPLv2 or later“. AGPL-3.0 ist mit GPLv3 kombinierbar, für die Ziel-Community wäre
-   **GPL-2.0-or-later** aber die reibungsärmere Wahl (Themes/Plugins können Code frei übernehmen). Entscheidung
-   vor dem ersten Release.
-3. **Mindestversion** – WP 6.6 / PHP 7.4 vorgeschlagen. Höher (z. B. PHP 8.1) würde modernen Code erlauben,
-   schließt aber noch einen Teil der Installationen aus.
-4. **Block-Präfix** – Blocknamen sind nach Veröffentlichung praktisch unveränderlich.
+| # | Thema | Entscheidung |
+|---|---|---|
+| 1 | Name & Slug | **Kadenz Slider**, Slug/Text-Domain `kadenz-slider`, Block-Namespace `kadenz` |
+| 2 | Lizenz | **GPL-2.0-or-later** (vorher AGPL-3.0) |
+| 3 | Mindestversion | **WordPress 6.6**, **PHP 7.4** |
+| 4 | Block-Präfix | `kadenz/slider`, `kadenz/slide` – ab 1.0 unveränderlich |
