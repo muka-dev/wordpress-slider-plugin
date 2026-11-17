@@ -4,7 +4,6 @@
 	"name": "kadenz/slide",
 	"title": "Slide",
 	"category": "media",
-	"description": "A single slide inside a slider.",
 	"parent": [ "kadenz/slider" ],
 	"textdomain": "kadenz-slider",
 	"attributes": {
