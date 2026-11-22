@@ -9,7 +9,7 @@
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpunit/phpunit": "^9.6",
 		"wp-coding-standards/wpcs": "^3.0",
-		"wp-phpunit/wp-phpunit": "^6.6",
+		"wp-phpunit/wp-phpunit": "^7.1",
 		"yoast/phpunit-polyfills": "^2.0"
 	},
 	"config": {
