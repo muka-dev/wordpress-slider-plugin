@@ -32,9 +32,9 @@
 		"@axe-core/playwright": "^4.14.0",
 		"@playwright/test": "^1.65.1",
 		"@size-limit/file": "^14.3.0",
-		"@wordpress/e2e-test-utils-playwright": "^1.54.0",
-		"@wordpress/env": "^10.0.0",
-		"@wordpress/scripts": "^30.0.0",
+		"@wordpress/e2e-test-utils-playwright": "^3.2.0",
+		"@wordpress/env": "^12.1.0",
+		"@wordpress/scripts": "^37.1.0",
 		"size-limit": "^14.3.0",
 		"typescript": "~7.0.2"
 	},
