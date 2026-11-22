@@ -36,7 +36,7 @@
 		"@wordpress/env": "^12.1.0",
 		"@wordpress/scripts": "^37.1.0",
 		"size-limit": "^14.3.0",
-		"typescript": "~5.5.4"
+		"typescript": "~7.0.2"
 	},
 	"scripts": {
 		"build": "wp-scripts build --experimental-modules",
